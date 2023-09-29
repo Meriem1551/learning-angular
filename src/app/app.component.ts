@@ -10,5 +10,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app works!, woop woop';
-  name = 'Meriem';
+ /* name = 'jujutsu Kaisen';
+   jujutsuKaisen = {
+    name : 'Itadori',
+    belt :'light red'
+   };
+   yell(e : any){
+    alert("I'm yelling");
+    console.log(e);
+   } */
 }

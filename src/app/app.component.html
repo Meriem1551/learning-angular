@@ -2,11 +2,13 @@
   <h1>{{title}}</h1>
   <nav>
     <ul>
-      <li>link</li>
-      <li>link</li>
+      <li><a routerLink="/">link</a></li>
+      <li><a routerLink="/directory">link </a></li>
     </ul>
   </nav>
 </Header>
 <section id="main">
-  <app-home>Now it would be displayed</app-home> <!--Whatever you add here angular will ignore it -- go to home.component.html -->
+  <!--<app-home [jujutsuKaisen]="jujutsuKaisen" (onYell)="yell($event)">Hey there!</app-home> //Whatever you add here angular will ignore it -- go to home.component.html 
+  <app-directory></app-directory>-->
+  <router-outlet></router-outlet>
 </section>

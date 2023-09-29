@@ -1,0 +1,152 @@
+** to create a new component: **
+
+1/in the terminal navigate to the app folder
+2/ run this command: 
+    ng generate component <name of your component>.
+
+** Data binding: **
+String interpolation:
+    {{a name}}
+Property binding:
+    <input [required]='expression'>
+         Bind to html properties:
+           - Native HTML properties: [value]="expression"
+           - Built in angular directives:[ngClass]="expression"
+           - Custom-made properties:[myProp]="expression"
+
+Event binding:
+    <button (click)='expression'>
+    Component class can handle the event
+        -Bind events to html elements:
+            -Bind to native events(such as click events):
+               - <button (click) ="function">
+            -Bind to custom events we make:
+                - <app-home (update)="function"></app-home>
+                
+Two-way data binding: home.ts <= DATA =>home.html
+    <input [(ng model)]="model/object">
+    Update the model/object in the component class
+    In turn updates any reference to the model/oblect in the view/template
+    {{model}}
+    
+
+To add ngmodule :
+First you need to go to:
+     the app.module.ts and add this code :
+        "import { FormsModule } from '@angular/forms';//add this
+
+        @NgModule({
+        declarations: [
+            // Your components
+        ],
+        imports: [
+            BrowserModule,
+            FormsModule, // Add this
+        ],
+        bootstrap: [AppComponent],
+        })
+        export class AppModule { }"
+
+@input and custome property binding:
+
+//we send data from the root to the home comp
+
+    How to send data from a comp to another:
+        1-initialize a data in the root component 'app.component.ts'
+        2-in the root comp view 'app.component.html' we pass this data through a customer property into the comp tag 'app-home'
+        3-in the comp.ts 'home.component.ts' import 'Input' and then write inside the comp class write  "@Input () data-name: type (use 'any')"
+        4-in the comp.html 'home.component.html' output this data as normal using string interpolation "{{}}"
+
+@output and custom event binding:
+
+//we send data from home to root comp
+
+    1-we declare the event in the app-home tag into the root comp view (app.comp.html) (event-name="func")
+    2-we define the function in the app.comp.ts 
+    3-import Output and write "@Output() func-name = new EventEmitter()"
+    4-in the home comp view we add a button with normal event  and add a function to emit the custom event (click)= "fireYellEvent($event)"
+    5-define this fireYellEvent($event) in the home comp class 'home.comp.ts' as 
+        fireYellEvent(e:any){
+            this.onYell.emit(e);
+        }
+    
+** Setting up routes:
+    1-Create a routes file, and export our routes so they can be loaded in th main.ts file.
+    2-Tell angular where to load in our components/ views when a route is requested  
+
+// you can create a component with shortcut by typing ng g c compname//
+1-From your code editor, open the app.module.ts file.
+2-Add the following import statement:
+    import { RouterModule } from '@angular/router';
+3-Locate the @NgModule() section.
+4-Add the following code to the inport array:
+    RouterModule.forRoot([
+    {path: 'crisis-list', component: CrisisListComponent},// replace "path"value and "component"value with your needs
+    {path: 'heroes-list', component: HeroesListComponent},
+  ]),
+5-From your code editor, open the app.component.html file.
+6-Delete all the tag componnent
+7-Add the router-outlet directive:
+    <router-outlet></router-outlet>
+8-Open the app.component.html file and add the following
+    <a  routerLink="/your path">name</a> |
+
+** Pipes **
+we can chain pipes together by  {{ninja.name | uppercase | slice:1:3}} //just an ex
+custom pipe:
+1-ng g pipe name
+2-create it in the comp.ts file
+    <form id="filter" >
+        <label>Filter ninjas by name</label>
+        <input type="text" [ngModel]="term" name="term" [ngModelOptions]="{ standalone: true }"/>
+    </form> in comp.html
+3-add this *ngFor="let ninja of ninjas | filter:term" to the input tag
+4-declare all the var in comp.ts
+5-import FilterPipe from the pipefile into app.module.ts
+and declare it in declaration
+
+** Create a service **
+1-ng g s name
+2-write the service
+3-import it to the app.module.ts
+and write it inside the providers:[]
+4-import it to comp.ts and create a constructor inside it
+    constructor(private logger: LoggingService){}
+5-create a method in the same file as the constructor
+6-create a button in comp.html and call the method we created in comp.ts
+
+** Http **
+1-Create a json file inside the assets folder
+2- import HttpClientModule in app.module.ts and add it to @NgModule in imports
+3-ng g s nameofservice
+4-in the service.ts file import { HttpClient } from '@angular/common/http';
+5-add this code 
+    constructor(private http: HttpClient) { }
+   fetchData(): Observable<any>{
+    return  this.httpClient.get('/assets/data.json').pipe(
+      map((res :any) => {
+         return res; 
+      }
+     ))
+   };
+ // requesting for data from json file 
+6-import the data service to app.modular.ts and then add this services to providers
+7-import //   //    //    //  comp.ts and then add it to the constructor just as the first service and add this 
+    ngOnInit(){
+    this.dataService.fetchData().subscribe(
+      (data: any) => {
+        // your code
+      },
+    );
+} after import OnInit and add the service to the constructor
+
+** Hooking data to firebase **
+    1- go to firebase.google.com and get started
+    2- tap create a project then follow the instructions
+    3- when you finish click on "realtime data base" in 'build'
+    4-just type next and then enable
+    5-click on 'Rules' and set the write and read property to true then publish
+    6-return to 'Data' type 3 dots in left and import json, browse , choose a json file you created then import
+    7-copy the database url and put it inside the json file url in the service.ts
+    here get('/assets/data.json') so get('https://nn-angular-4c847-default-rtdb.firebaseio.com/.json') add .json as showed
+    // you can change value in this database

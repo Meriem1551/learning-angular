@@ -1,14 +1,23 @@
-<h2>{{Hometitle}}</h2>
-<p>{{author}} </p>
-<!--You must add the tag below to display it-->
-<ng-content></ng-content>
+<!-- this is just for trying
+    <p>{{author}} </p>
+    // You must add the tag below to display it
 
-<!-- property binding -->
-<input [value]="myString" /> <!-- or value="{{myString}}"-->
-<input [required]="myBoolean"/> <!-- same for this-->
-<button (click)="alertMe('i like animes')">Click me</button>
-<form>
- <input [(ngModel)]="jujutsuKaisen.name" type="text"/>
-</form>
+    // property binding 
+    <input [value]="myString" /> // or value="{{myString}}"
+    <input [required]="myBoolean"/> // same for this
+    <button (click)="alertMe('i like animes')">Click me</button>
+ -->
+ <h2>{{Hometitle}}</h2>
+ <!--
+ <ng-content></ng-content>
+<label >Name:</label>
+<input [(ngModel)]="jujutsuKaisen.name" type="text"/> // the jujutsuKaisen.name will be updated in the home.Component.ts when the user type in the input field then display it in the p tag
+<label >Belt:</label>
+ <input [(ngModel)]="jujutsuKaisen.belt" type="text"/>
+<p>{{jujutsuKaisen.name}}</p>
+<p>{{jujutsuKaisen.name}}</p>
+<p>{{jujutsuKaisen.belt}}</p> 
 <p>{{jujutsuKaisen.name}}</p>
 <p>{{jujutsuKaisen.belt}}</p>
+<button (click)=" fireYellEvent($event)">Hit me</button> -->
+<button (click)="logIt()">Log me</button>
